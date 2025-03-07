@@ -18,7 +18,7 @@ namespace AplicacionWEB
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-C9H0QQO\\SQLEXPRESS;Integrated Security=True;");
+            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-C9H0QQO\\SQLEXPRESS;Initial Catalog=templateDB;Integrated Security=True;");
             conn.Open();
 
             DataClasses1DataContext mapeador = new DataClasses1DataContext(conn);

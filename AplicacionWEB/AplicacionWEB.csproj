@@ -68,7 +68,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Home.aspx" />
     <Content Include="IngresoServicios.aspx" />
+    <Content Include="ModificarServicios.aspx" />
     <Content Include="MostrarServicios.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -78,12 +80,26 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
     <Compile Include="IngresoServicios.aspx.cs">
       <DependentUpon>IngresoServicios.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="IngresoServicios.aspx.designer.cs">
       <DependentUpon>IngresoServicios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarServicios.aspx.cs">
+      <DependentUpon>ModificarServicios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModificarServicios.aspx.designer.cs">
+      <DependentUpon>ModificarServicios.aspx</DependentUpon>
     </Compile>
     <Compile Include="MostrarServicios.aspx.cs">
       <DependentUpon>MostrarServicios.aspx</DependentUpon>

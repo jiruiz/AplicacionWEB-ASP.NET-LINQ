@@ -14,7 +14,7 @@ namespace AplicacionWEB
 		protected void Page_Load(object sender, EventArgs e)
 		{
 
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-C9H0QQO\\SQLEXPRESS;Integrated Security=True;");
+            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-C9H0QQO\\SQLEXPRESS;Initial Catalog=templateDB;Integrated Security=True;");
             conn.Open();
 
             DataClasses1DataContext mapeador = new DataClasses1DataContext(conn);
@@ -49,6 +49,8 @@ namespace AplicacionWEB
             // Crea la consulta LINQ para obtener los servicios
             // Asignamos una fuente de datos para el DropDownList desde la tabla "Servicios"
             ddlServicios.DataSource = from p in mapeador.Servicios // Consulta LINQ a la tabla "Servicios" en el contexto LINQ
+
+                                      where p.Estado == true // Filtra solo los servicios activos
                                       select new
                                       {
                                           p.Nombre,          // Incluimos el campo "Nombre" para mostrarlo en el DropDownList
