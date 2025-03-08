@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IngresoServicios.aspx.cs" Inherits="AplicacionWEB.IngresoServicios" MasterPageFile="~/Site1.Master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IngresoServicios.aspx.cs" Inherits="AplicacionWEB.IngresoServicios" MasterPageFile="~/SiteHome.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <!-- Aquí puedes agregar contenido para el encabezado, si lo necesitas -->

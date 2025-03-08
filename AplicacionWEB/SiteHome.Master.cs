@@ -37,6 +37,7 @@ namespace AplicacionWEB
                 {
                     PhAdmin.Visible = true;
                     PhHomeVentas.Visible = true;
+                    PhDashboard.Visible = true;
 
                 }
                 else

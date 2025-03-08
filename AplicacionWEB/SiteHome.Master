@@ -24,12 +24,15 @@
                                 Acciones Administrativas
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="ModificarServicios.aspx">Modificar Servicios</a></li>
+                                <li><a class="dropdown-item" href="MostrarServicios.aspx">Mis Servicio</a></li>
                                 <li><a class="dropdown-item" href="IngresoServicios.aspx">Ingresar Servicio</a></li>
+                                <li><a class="dropdown-item" href="ModificarServicios.aspx">Modificar Servicios</a></li>
                             </ul>
 
                         </li>
                     </asp:PlaceHolder>
+
+
 
                     <!-- Placeholder dinámico para "Servicios" (al lado del Home) -->
                     <asp:PlaceHolder ID="PhHomeVentas" runat="server">
@@ -38,7 +41,20 @@
                         </li>
                     </asp:PlaceHolder>
 
+
+
+                     <!-- Placeholder dinámico para "Servicios" (al lado del Home) -->
+                 <asp:PlaceHolder ID="PhDashboard" runat="server">
+                     <li class="nav-item dropdown">
+                         <a class="nav-link" href="Dashboard.aspx">Dashboard</a>
+                     </li>
+                 </asp:PlaceHolder>
+
                 </ul>
+                                 <form class="d-flex" action="ResultadosBusqueda.aspx" method="get">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Buscar" aria-label="Buscar">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
                 <ul class="navbar-nav">
                     <!-- Mostrar dinámicamente "Iniciar Sesión" o "Cerrar Sesión" -->
                     <asp:PlaceHolder ID="PhCerrarSesion" runat="server">

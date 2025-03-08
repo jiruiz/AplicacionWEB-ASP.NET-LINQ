@@ -192,6 +192,7 @@
     <None Include="packages.config" />
     <Content Include="Site1.Master" />
     <Content Include="SiteHome.Master" />
+    <None Include="Properties\PublishProfiles\ServiciosApp - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

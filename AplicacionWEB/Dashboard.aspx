@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Site1.Master" CodeBehind="Dashboard.aspx.cs" Inherits="AplicacionWEB.Dashboard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/SiteHome.Master" CodeBehind="Dashboard.aspx.cs" Inherits="AplicacionWEB.Dashboard" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Dashboard - Estadísticas</title>
