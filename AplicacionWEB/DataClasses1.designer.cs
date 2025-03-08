@@ -33,6 +33,9 @@ namespace AplicacionWEB
     partial void InsertServicios(Servicios instance);
     partial void UpdateServicios(Servicios instance);
     partial void DeleteServicios(Servicios instance);
+    partial void InsertUsuarios(Usuarios instance);
+    partial void UpdateUsuarios(Usuarios instance);
+    partial void DeleteUsuarios(Usuarios instance);
     #endregion
 		
 		public DataClasses1DataContext(string connection) : 
@@ -64,6 +67,14 @@ namespace AplicacionWEB
 			get
 			{
 				return this.GetTable<Servicios>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Usuarios> Usuarios
+		{
+			get
+			{
+				return this.GetTable<Usuarios>();
 			}
 		}
 	}
@@ -225,6 +236,308 @@ namespace AplicacionWEB
 					this._Estado = value;
 					this.SendPropertyChanged("Estado");
 					this.OnEstadoChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Usuarios")]
+	public partial class Usuarios : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdUsuario;
+		
+		private string _Nombre;
+		
+		private string _Apellido;
+		
+		private string _Telefono;
+		
+		private string _Email;
+		
+		private string _Usuario;
+		
+		private string _Contrasena;
+		
+		private System.Nullable<System.DateTime> _FechaNacimiento;
+		
+		private string _Rol;
+		
+		private System.Nullable<bool> _Activo;
+		
+		private System.Nullable<System.DateTime> _FechaRegistro;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdUsuarioChanging(int value);
+    partial void OnIdUsuarioChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnApellidoChanging(string value);
+    partial void OnApellidoChanged();
+    partial void OnTelefonoChanging(string value);
+    partial void OnTelefonoChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnUsuarioChanging(string value);
+    partial void OnUsuarioChanged();
+    partial void OnContrasenaChanging(string value);
+    partial void OnContrasenaChanged();
+    partial void OnFechaNacimientoChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaNacimientoChanged();
+    partial void OnRolChanging(string value);
+    partial void OnRolChanged();
+    partial void OnActivoChanging(System.Nullable<bool> value);
+    partial void OnActivoChanged();
+    partial void OnFechaRegistroChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaRegistroChanged();
+    #endregion
+		
+		public Usuarios()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUsuario", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdUsuario
+		{
+			get
+			{
+				return this._IdUsuario;
+			}
+			set
+			{
+				if ((this._IdUsuario != value))
+				{
+					this.OnIdUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._IdUsuario = value;
+					this.SendPropertyChanged("IdUsuario");
+					this.OnIdUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Apellido", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Apellido
+		{
+			get
+			{
+				return this._Apellido;
+			}
+			set
+			{
+				if ((this._Apellido != value))
+				{
+					this.OnApellidoChanging(value);
+					this.SendPropertyChanging();
+					this._Apellido = value;
+					this.SendPropertyChanged("Apellido");
+					this.OnApellidoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefono", DbType="VarChar(20)")]
+		public string Telefono
+		{
+			get
+			{
+				return this._Telefono;
+			}
+			set
+			{
+				if ((this._Telefono != value))
+				{
+					this.OnTelefonoChanging(value);
+					this.SendPropertyChanging();
+					this._Telefono = value;
+					this.SendPropertyChanged("Telefono");
+					this.OnTelefonoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Usuario
+		{
+			get
+			{
+				return this._Usuario;
+			}
+			set
+			{
+				if ((this._Usuario != value))
+				{
+					this.OnUsuarioChanging(value);
+					this.SendPropertyChanging();
+					this._Usuario = value;
+					this.SendPropertyChanged("Usuario");
+					this.OnUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contrasena", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string Contrasena
+		{
+			get
+			{
+				return this._Contrasena;
+			}
+			set
+			{
+				if ((this._Contrasena != value))
+				{
+					this.OnContrasenaChanging(value);
+					this.SendPropertyChanging();
+					this._Contrasena = value;
+					this.SendPropertyChanged("Contrasena");
+					this.OnContrasenaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaNacimiento", DbType="Date")]
+		public System.Nullable<System.DateTime> FechaNacimiento
+		{
+			get
+			{
+				return this._FechaNacimiento;
+			}
+			set
+			{
+				if ((this._FechaNacimiento != value))
+				{
+					this.OnFechaNacimientoChanging(value);
+					this.SendPropertyChanging();
+					this._FechaNacimiento = value;
+					this.SendPropertyChanged("FechaNacimiento");
+					this.OnFechaNacimientoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rol", DbType="VarChar(20) NOT NULL", CanBeNull=false)]
+		public string Rol
+		{
+			get
+			{
+				return this._Rol;
+			}
+			set
+			{
+				if ((this._Rol != value))
+				{
+					this.OnRolChanging(value);
+					this.SendPropertyChanging();
+					this._Rol = value;
+					this.SendPropertyChanged("Rol");
+					this.OnRolChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activo", DbType="Bit")]
+		public System.Nullable<bool> Activo
+		{
+			get
+			{
+				return this._Activo;
+			}
+			set
+			{
+				if ((this._Activo != value))
+				{
+					this.OnActivoChanging(value);
+					this.SendPropertyChanging();
+					this._Activo = value;
+					this.SendPropertyChanged("Activo");
+					this.OnActivoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaRegistro", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaRegistro
+		{
+			get
+			{
+				return this._FechaRegistro;
+			}
+			set
+			{
+				if ((this._FechaRegistro != value))
+				{
+					this.OnFechaRegistroChanging(value);
+					this.SendPropertyChanging();
+					this._FechaRegistro = value;
+					this.SendPropertyChanged("FechaRegistro");
+					this.OnFechaRegistroChanged();
 				}
 			}
 		}

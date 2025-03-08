@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteHome.master.cs" Inherits="AplicacionWEB.SiteHome" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head runat="server">
+    <meta charset="utf-8">
+    <title>Aplicación Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="Home.aspx">JR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Mostrar solo si el usuario es administrador -->
+                    <asp:PlaceHolder ID="PhAdmin" runat="server">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Acciones Administrativas
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="ModificarServicios.aspx">Modificar Servicios</a></li>
+                                <li><a class="dropdown-item" href="IngresoServicios.aspx">Ingresar Servicio</a></li>
+                            </ul>
+
+                        </li>
+                    </asp:PlaceHolder>
+
+                    <!-- Placeholder dinámico para "Servicios" (al lado del Home) -->
+                    <asp:PlaceHolder ID="PhHomeVentas" runat="server">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="HomeVentas.aspx">Servicios</a>
+                        </li>
+                    </asp:PlaceHolder>
+
+                </ul>
+                <ul class="navbar-nav">
+                    <!-- Mostrar dinámicamente "Iniciar Sesión" o "Cerrar Sesión" -->
+                    <asp:PlaceHolder ID="PhCerrarSesion" runat="server">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Logout.aspx">Cerrar Sesión</a>
+                        </li>
+                    </asp:PlaceHolder>
+
+
+             
+
+
+
+
+                    <asp:PlaceHolder ID="PhIniciarSesion" runat="server">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Login.aspx">Iniciar Sesión</a>
+                        </li>
+                    </asp:PlaceHolder>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+    </div>
+    <footer class="navbar navbar-expand-lg navbar-light bg-light text-center py-4">
+        <div class="container-fluid">
+            <span class="navbar-text mx-auto">
+                &copy; 2025 Juan Ignacio Ruiz - Todos los derechos reservados
+            </span>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
