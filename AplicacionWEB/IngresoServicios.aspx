@@ -36,6 +36,11 @@
             <asp:CheckBox ID="CheckBox1" runat="server" CssClass="form-check-input" />
             <label for="CheckBox1" class="form-check-label">Estado</label>
         </div>
+        <div class="mb-3">
+            <label for="ddlCategoria" class="form-label">Categoría</label>
+            <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-control">
+            </asp:DropDownList>
+        </div>
 
         <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" Text="Guardar" OnClick="btnGuardar_Click" />
     </div>

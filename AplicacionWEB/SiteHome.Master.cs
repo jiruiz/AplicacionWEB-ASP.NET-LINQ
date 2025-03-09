@@ -38,12 +38,15 @@ namespace AplicacionWEB
                     PhAdmin.Visible = true;
                     PhHomeVentas.Visible = true;
                     PhDashboard.Visible = true;
+                    PhCategorias.Visible = true;
+                    PhUsuarios.Visible = true;
 
                 }
                 else
                 {
                     PhAdmin.Visible = false;
                     PhHomeVentas.Visible = true;
+
 
                 }
             }
@@ -54,6 +57,9 @@ namespace AplicacionWEB
                 PhCerrarSesion.Visible = false;
                 PhIniciarSesion.Visible = true;
                 PhAdmin.Visible = false;
+                PhCategorias.Visible = false;
+                PhDashboard.Visible = false;
+                PhUsuarios.Visible = false; 
             }
         }
 

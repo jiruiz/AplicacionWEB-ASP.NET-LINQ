@@ -69,10 +69,21 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
+                    <asp:TemplateField HeaderText="Categoría">
+                        <ItemTemplate>
+                            <asp:Label ID="labelCategoria" runat="server" Text='<%# Bind("CategoriaNombre") %>'></asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:DropDownList ID="ddlCategoria" runat="server">
+                            </asp:DropDownList>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+
 
                     <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true" />
                 </Columns>
             </asp:GridView>
+                                <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 
             <asp:HyperLink NavigateUrl="MostrarServicios.aspx" Text="Volver a Servicios" runat="server" />
         </div>

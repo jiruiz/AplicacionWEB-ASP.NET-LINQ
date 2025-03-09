@@ -33,6 +33,24 @@ namespace AplicacionWEB
         protected global::System.Web.UI.WebControls.PlaceHolder PhAdmin;
 
         /// <summary>
+        /// Control PhCategorias.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PhCategorias;
+
+        /// <summary>
+        /// Control PhUsuarios.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PhUsuarios;
+
+        /// <summary>
         /// Control PhHomeVentas.
         /// </summary>
         /// <remarks>

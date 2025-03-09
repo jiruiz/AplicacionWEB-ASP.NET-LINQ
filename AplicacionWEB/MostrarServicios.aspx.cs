@@ -42,14 +42,17 @@ namespace AplicacionWEB
             else
             {
                 // Continuar con la carga de los datos
-                var servicios = from a in mapeador.Servicios
+                var servicios = from s in mapeador.Servicios
+                                join c in mapeador.Categorias on s.IdCategoria equals c.IdCategoria into categorias
+                                from cat in categorias.DefaultIfEmpty() // Maneja casos sin categoría
                                 select new
                                 {
-                                    a.Nombre,
-                                    a.Descripcion,
-                                    a.Precio,
-                                    a.DuracionMinutos,
-                                    a.Estado
+                                    s.Nombre,
+                                    s.Descripcion,
+                                    s.Precio,
+                                    s.DuracionMinutos,
+                                    s.Estado,
+                                    Categoria = cat != null ? cat.Nombre : "Sin Categoría" // Muestra "Sin Categoría" si no hay relación
                                 };
 
                 // Asignamos los datos al GridView

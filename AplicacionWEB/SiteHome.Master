@@ -21,7 +21,7 @@
                     <asp:PlaceHolder ID="PhAdmin" runat="server">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Acciones Administrativas
+                                Servicios
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="MostrarServicios.aspx">Mis Servicio</a></li>
@@ -31,6 +31,42 @@
 
                         </li>
                     </asp:PlaceHolder>
+
+
+                    <asp:PlaceHolder ID="PhCategorias" runat="server">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               Categorias
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="MostrarCategorias.aspx">Mis Categorias</a></li>
+                                <li><a class="dropdown-item" href="IngresoCategorias.aspx">Ingresar Categoria</a></li>
+                                
+                               
+                            </ul>
+
+                        </li>
+                    </asp:PlaceHolder>
+
+
+                    <asp:PlaceHolder ID="PhUsuarios" runat="server">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               Usuarios
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="MostrarUsuarios.aspx">Mis Usuarios</a></li>
+                                <li><a class="dropdown-item" href="ModificarUsuarios.aspx">ModificarUsuario</a></li>
+                                
+                               
+                            </ul>
+
+                        </li>
+                    </asp:PlaceHolder>
+
+
+
+
 
 
 
