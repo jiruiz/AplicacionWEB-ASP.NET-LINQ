@@ -31,6 +31,7 @@ namespace AplicacionWEB
                 // Mostrar "Cerrar Sesión"
                 PhCerrarSesion.Visible = true;
                 PhIniciarSesion.Visible = false;
+                PhCarrito.Visible = true;
 
                 // Mostrar opciones administrativas solo si es administrador
                 if (rolUsuario == "Admin")
@@ -40,6 +41,7 @@ namespace AplicacionWEB
                     PhDashboard.Visible = true;
                     PhCategorias.Visible = true;
                     PhUsuarios.Visible = true;
+                    PhCarrito.Visible = true;
 
                 }
                 else

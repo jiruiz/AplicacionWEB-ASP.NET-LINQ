@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AccesoDenegado.aspx" />
+    <Content Include="Carrito.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="HomeVentas.aspx" />
@@ -92,6 +93,13 @@
     </Compile>
     <Compile Include="AccesoDenegado.aspx.designer.cs">
       <DependentUpon>AccesoDenegado.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Carrito.aspx.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Carrito.aspx.designer.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>

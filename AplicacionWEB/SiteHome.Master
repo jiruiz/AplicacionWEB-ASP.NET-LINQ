@@ -100,6 +100,12 @@
                     </asp:PlaceHolder>
 
 
+                    <asp:PlaceHolder ID="PhCarrito" runat="server">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Carrito.aspx">Carrito</a>
+                        </li>
+                    </asp:PlaceHolder>
+
              
 
 

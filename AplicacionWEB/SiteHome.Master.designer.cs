@@ -78,6 +78,15 @@ namespace AplicacionWEB
         protected global::System.Web.UI.WebControls.PlaceHolder PhCerrarSesion;
 
         /// <summary>
+        /// Control PhCarrito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PhCarrito;
+
+        /// <summary>
         /// Control PhIniciarSesion.
         /// </summary>
         /// <remarks>

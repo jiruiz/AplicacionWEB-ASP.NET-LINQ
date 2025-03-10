@@ -1,4 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="templateDB" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.Categorias" Member="Categorias">
+    <Type Name="Categorias">
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="Categorias_Servicios" Member="Servicios" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="Servicios" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Servicios" Member="Servicios">
+    <Type Name="Servicios">
+      <Column Name="IdServicio" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DuracionMinutos" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Precio" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Servicios_TurnosServicios" Member="TurnosServicios" ThisKey="IdServicio" OtherKey="IdServicio" Type="TurnosServicios" />
+      <Association Name="Servicios_TurnosServicios1" Member="TurnosServicios1" ThisKey="IdServicio" OtherKey="IdServicio" Type="TurnosServicios" />
+      <Association Name="Categorias_Servicios" Member="Categorias" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="Categorias" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Turnos" Member="Turnos">
+    <Type Name="Turnos">
+      <Column Name="IdTurno" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FechaTurno" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Estado" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ImporteTotal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Turnos_TurnosServicios" Member="TurnosServicios" ThisKey="IdTurno" OtherKey="IdTurno" Type="TurnosServicios" />
+      <Association Name="Usuarios_Turnos" Member="Usuarios" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Usuarios" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TurnosServicios" Member="TurnosServicios">
+    <Type Name="TurnosServicios">
+      <Column Name="IdTurno" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdServicio" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdTurnosServicios" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Servicios_TurnosServicios" Member="Servicios" ThisKey="IdServicio" OtherKey="IdServicio" Type="Servicios" IsForeignKey="true" />
+      <Association Name="Servicios_TurnosServicios1" Member="Servicios1" ThisKey="IdServicio" OtherKey="IdServicio" Type="Servicios" IsForeignKey="true" />
+      <Association Name="Turnos_TurnosServicios" Member="Turnos" ThisKey="IdTurno" OtherKey="IdTurno" Type="Turnos" IsForeignKey="true" DeleteRule="SET NULL" />
+    </Type>
+  </Table>
   <Table Name="dbo.Usuarios" Member="Usuarios">
     <Type Name="Usuarios">
       <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -12,26 +56,7 @@
       <Column Name="Rol" Type="System.String" DbType="VarChar(20) NOT NULL" CanBeNull="false" />
       <Column Name="Activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="FechaRegistro" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Servicios" Member="Servicios">
-    <Type Name="Servicios">
-      <Column Name="IdServicio" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="DuracionMinutos" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Precio" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
-      <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="IdCategoria" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Categorias_Servicios" Member="Categorias" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="Categorias" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Categorias" Member="Categorias">
-    <Type Name="Categorias">
-      <Column Name="IdCategoria" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Association Name="Categorias_Servicios" Member="Servicios" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="Servicios" />
+      <Association Name="Usuarios_Turnos" Member="Turnos" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Turnos" />
     </Type>
   </Table>
 </Database>
