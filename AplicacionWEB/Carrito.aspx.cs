@@ -7,23 +7,23 @@ namespace AplicacionWEB
 {
     public partial class Carrito : System.Web.UI.Page
     {
-        private SqlConnection conn; // Conexión compartida
-        private DataClasses1DataContext mapeador; // Contexto de datos compartido
+        private SqlConnection conn;
+        private DataClasses1DataContext mapeador;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Configurar conexión y contexto de datos
+            // Configurar la conexión
             conn = new SqlConnection("Data Source=DESKTOP-C9H0QQO\\SQLEXPRESS;Initial Catalog=templateDB;Integrated Security=True;");
             conn.Open();
             mapeador = new DataClasses1DataContext(conn);
 
             if (!IsPostBack)
             {
-                CargarCarrito();
+                CargarServiciosDelCarrito();
             }
         }
 
-        protected void CargarCarrito()
+        protected void CargarServiciosDelCarrito()
         {
             try
             {
@@ -41,30 +41,30 @@ namespace AplicacionWEB
                     return;
                 }
 
-                var carrito = from ts in mapeador.TurnosServicios
-                              join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
-                              where ts.IdUsuario == usuario.IdUsuario && ts.IdTurno == null
-                              select new
-                              {
-                                  ts.IdTurnosServicios,
-                                  NombreServicio = s.Nombre,
-                                  Precio = s.Precio
-                              };
+                var servicios = from ts in mapeador.TurnosServicios
+                                join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
+                                where ts.IdUsuario == usuario.IdUsuario && ts.IdTurno == null
+                                select new
+                                {
+                                    ts.IdTurnosServicios,
+                                    NombreServicio = s.Nombre,
+                                    Precio = s.Precio
+                                };
 
-                if (!carrito.Any())
+                if (!servicios.Any())
                 {
-                    Response.Write("<p style='color:blue;'>No hay servicios en el carrito.</p>");
+                    MostrarMensaje("No hay servicios en el carrito.", "Blue");
+                    return;
                 }
 
-                RepeaterCarrito.DataSource = carrito.ToList();
+                RepeaterCarrito.DataSource = servicios.ToList();
                 RepeaterCarrito.DataBind();
             }
             catch (Exception ex)
             {
-                Response.Write($"<p style='color:red;'>Error al cargar el carrito: {ex.Message}</p>");
+                MostrarMensaje($"Error al cargar el carrito: {ex.Message}", "Red");
             }
         }
-
 
         protected void RepeaterCarrito_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -74,20 +74,20 @@ namespace AplicacionWEB
 
                 try
                 {
-                    // Eliminar el servicio del carrito
                     var item = mapeador.TurnosServicios.FirstOrDefault(ts => ts.IdTurnosServicios == idTurnosServicios);
                     if (item != null)
                     {
                         mapeador.TurnosServicios.DeleteOnSubmit(item);
                         mapeador.SubmitChanges();
+                        MostrarMensaje("Servicio eliminado con éxito.", "Green");
                     }
 
                     // Recargar el carrito
-                    CargarCarrito();
+                    CargarServiciosDelCarrito();
                 }
                 catch (Exception ex)
                 {
-                    Response.Write($"<p style='color:red;'>Error al eliminar el servicio: {ex.Message}</p>");
+                    MostrarMensaje($"Error al eliminar el servicio: {ex.Message}", "Red");
                 }
             }
         }
@@ -96,7 +96,6 @@ namespace AplicacionWEB
         {
             try
             {
-                // Validar usuario logueado
                 string usuarioLogueado = Session["UsuarioLogueado"]?.ToString();
                 if (string.IsNullOrEmpty(usuarioLogueado))
                 {
@@ -111,67 +110,62 @@ namespace AplicacionWEB
                     return;
                 }
 
-                // Crear un nuevo turno
                 Turnos nuevoTurno = new Turnos
                 {
                     IdUsuario = usuario.IdUsuario,
                     FechaTurno = DateTime.Now,
                     Estado = "Pendiente",
-                    ImporteTotal = 0 // Inicialmente en 0
+                    ImporteTotal = 0
                 };
 
                 mapeador.Turnos.InsertOnSubmit(nuevoTurno);
                 mapeador.SubmitChanges();
 
-                // Obtener servicios en el carrito
                 var serviciosEnCarrito = mapeador.TurnosServicios
                     .Where(ts => ts.IdUsuario == usuario.IdUsuario && ts.IdTurno == null).ToList();
 
-                // Verificar si hay servicios en el carrito
                 if (!serviciosEnCarrito.Any())
                 {
-                    Response.Write("<p style='color:red;'>No hay servicios en el carrito para confirmar.</p>");
+                    MostrarMensaje("No hay servicios en el carrito para confirmar.", "Red");
                     return;
                 }
 
-                // Asociar los servicios al turno
                 foreach (var servicio in serviciosEnCarrito)
                 {
                     servicio.IdTurno = nuevoTurno.IdTurno;
                 }
 
-                // Guardar los cambios antes de calcular el importe total
                 mapeador.SubmitChanges();
 
-                // Calcular el importe total
                 nuevoTurno.ImporteTotal = (from ts in mapeador.TurnosServicios
                                            join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
                                            where ts.IdTurno == nuevoTurno.IdTurno
                                            select s.Precio).Sum();
 
-                // Guardar el importe total actualizado
                 mapeador.SubmitChanges();
 
-                // Confirmar el turno en la sesión
                 Session["IdTurnoConfirmado"] = nuevoTurno.IdTurno;
                 Response.Redirect("Confirmacion.aspx");
             }
             catch (Exception ex)
             {
-                Response.Write($"<p style='color:red;'>Error al confirmar el turno: {ex.Message}</p>");
+                MostrarMensaje($"Error al confirmar el turno: {ex.Message}", "Red");
             }
         }
 
-
-
-
         protected void Page_Unload(object sender, EventArgs e)
         {
-            // Cerrar la conexión explícitamente
             if (conn != null && conn.State == System.Data.ConnectionState.Open)
             {
                 conn.Close();
             }
+        }
+
+        protected void MostrarMensaje(string mensaje, string color)
+        {
+            MensajeLabel.Text = mensaje;
+            MensajeLabel.ForeColor = System.Drawing.Color.FromName(color);
+            MensajeLabel.Visible = true;
         }
     }
 }

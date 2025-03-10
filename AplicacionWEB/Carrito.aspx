@@ -3,14 +3,15 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
-
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-   
     <form id="form1" runat="server">
         <div class="container mt-5">
             <h1 class="text-center text-primary">Carrito de Servicios</h1>
             <p class="text-center">Revise los servicios seleccionados antes de confirmar el turno.</p>
-
+            
+            <!-- MensajeLabel agregado aquí -->
+            <asp:Label ID="MensajeLabel" runat="server" CssClass="text-center d-block mb-3" Visible="false"></asp:Label>
+            
             <asp:Repeater ID="RepeaterCarrito" runat="server">
                 <HeaderTemplate>
                     <table class="table table-striped">
@@ -44,4 +45,3 @@
         </div>
     </form>
 </asp:Content>
-
