@@ -70,6 +70,7 @@
   <ItemGroup>
     <Content Include="AccesoDenegado.aspx" />
     <Content Include="Carrito.aspx" />
+    <Content Include="Confirmacion.aspx" />
     <Content Include="Dashboard.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="HomeVentas.aspx" />
@@ -100,6 +101,13 @@
     </Compile>
     <Compile Include="Carrito.aspx.designer.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Confirmacion.aspx.cs">
+      <DependentUpon>Confirmacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Confirmacion.aspx.designer.cs">
+      <DependentUpon>Confirmacion.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dashboard.aspx.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>

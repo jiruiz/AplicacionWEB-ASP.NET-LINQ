@@ -23,11 +23,10 @@ namespace AplicacionWEB
             }
         }
 
-        private void CargarCarrito()
+        protected void CargarCarrito()
         {
             try
             {
-                // Validar sesión del usuario
                 string usuarioLogueado = Session["UsuarioLogueado"]?.ToString();
                 if (string.IsNullOrEmpty(usuarioLogueado))
                 {
@@ -35,7 +34,6 @@ namespace AplicacionWEB
                     return;
                 }
 
-                // Obtener el usuario logueado
                 var usuario = mapeador.Usuarios.FirstOrDefault(u => u.Usuario == usuarioLogueado);
                 if (usuario == null)
                 {
@@ -43,10 +41,6 @@ namespace AplicacionWEB
                     return;
                 }
 
-                // DEBUG: Mostrar el IdUsuario del usuario logueado
-                Response.Write($"<p style='color:green;'>IdUsuario del usuario logueado: {usuario.IdUsuario}</p>");
-
-                // Cargar los servicios en el carrito (TurnosServicios sin confirmar)
                 var carrito = from ts in mapeador.TurnosServicios
                               join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
                               where ts.IdUsuario == usuario.IdUsuario && ts.IdTurno == null
@@ -57,21 +51,11 @@ namespace AplicacionWEB
                                   Precio = s.Precio
                               };
 
-                // Validar si el carrito tiene datos
                 if (!carrito.Any())
                 {
-                    Response.Write("<p style='color:blue;'>No hay servicios en el carrito para este usuario.</p>");
-                }
-                else
-                {
-                    // DEBUG: Mostrar los servicios del carrito en consola
-                    foreach (var item in carrito)
-                    {
-                        Response.Write($"<p>IdTurnosServicios: {item.IdTurnosServicios}, Servicio: {item.NombreServicio}, Precio: {item.Precio}</p>");
-                    }
+                    Response.Write("<p style='color:blue;'>No hay servicios en el carrito.</p>");
                 }
 
-                // Asignar datos al Repeater
                 RepeaterCarrito.DataSource = carrito.ToList();
                 RepeaterCarrito.DataBind();
             }
@@ -80,6 +64,7 @@ namespace AplicacionWEB
                 Response.Write($"<p style='color:red;'>Error al cargar el carrito: {ex.Message}</p>");
             }
         }
+
 
         protected void RepeaterCarrito_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
@@ -111,7 +96,7 @@ namespace AplicacionWEB
         {
             try
             {
-                // Validar sesión del usuario
+                // Validar usuario logueado
                 string usuarioLogueado = Session["UsuarioLogueado"]?.ToString();
                 if (string.IsNullOrEmpty(usuarioLogueado))
                 {
@@ -119,7 +104,6 @@ namespace AplicacionWEB
                     return;
                 }
 
-                // Obtener el usuario logueado
                 var usuario = mapeador.Usuarios.FirstOrDefault(u => u.Usuario == usuarioLogueado);
                 if (usuario == null)
                 {
@@ -133,22 +117,43 @@ namespace AplicacionWEB
                     IdUsuario = usuario.IdUsuario,
                     FechaTurno = DateTime.Now,
                     Estado = "Pendiente",
-                    ImporteTotal = 0 // Se calculará posteriormente
+                    ImporteTotal = 0 // Inicialmente en 0
                 };
+
                 mapeador.Turnos.InsertOnSubmit(nuevoTurno);
                 mapeador.SubmitChanges();
 
-                // Asociar los servicios del carrito al nuevo turno
-                var serviciosEnCarrito = mapeador.TurnosServicios.Where(ts => ts.IdUsuario == usuario.IdUsuario && ts.IdTurno == null);
+                // Obtener servicios en el carrito
+                var serviciosEnCarrito = mapeador.TurnosServicios
+                    .Where(ts => ts.IdUsuario == usuario.IdUsuario && ts.IdTurno == null).ToList();
+
+                // Verificar si hay servicios en el carrito
+                if (!serviciosEnCarrito.Any())
+                {
+                    Response.Write("<p style='color:red;'>No hay servicios en el carrito para confirmar.</p>");
+                    return;
+                }
+
+                // Asociar los servicios al turno
                 foreach (var servicio in serviciosEnCarrito)
                 {
                     servicio.IdTurno = nuevoTurno.IdTurno;
                 }
 
-                
+                // Guardar los cambios antes de calcular el importe total
                 mapeador.SubmitChanges();
 
-                // Redirigir a una página de confirmación
+                // Calcular el importe total
+                nuevoTurno.ImporteTotal = (from ts in mapeador.TurnosServicios
+                                           join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
+                                           where ts.IdTurno == nuevoTurno.IdTurno
+                                           select s.Precio).Sum();
+
+                // Guardar el importe total actualizado
+                mapeador.SubmitChanges();
+
+                // Confirmar el turno en la sesión
+                Session["IdTurnoConfirmado"] = nuevoTurno.IdTurno;
                 Response.Redirect("Confirmacion.aspx");
             }
             catch (Exception ex)
@@ -156,6 +161,9 @@ namespace AplicacionWEB
                 Response.Write($"<p style='color:red;'>Error al confirmar el turno: {ex.Message}</p>");
             }
         }
+
+
+
 
         protected void Page_Unload(object sender, EventArgs e)
         {
