@@ -38,7 +38,9 @@
                         <thead class="thead-dark">
                             <tr>
                                 <th>Servicio</th>
-                                <th>Precio (ARS)</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario (ARS)</th>
+                                <th>Total (ARS)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,7 +48,9 @@
                 <ItemTemplate>
                     <tr>
                         <td><%# Eval("NombreServicio") %></td>
+                        <td class="text-center"><%# Eval("Cantidad") %></td>
                         <td>ARS <%# Eval("Precio", "{0:N2}") %></td>
+                        <td>ARS <%# Eval("Total", "{0:N2}") %></td>
                     </tr>
                 </ItemTemplate>
                 <FooterTemplate>
@@ -57,6 +61,7 @@
                     </div>
                 </FooterTemplate>
             </asp:Repeater>
+
 
             <div class="text-center mt-4">
                 <a href="HomeVentas.aspx" class="btn btn-primary">🏠 Volver al Inicio</a>

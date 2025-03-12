@@ -85,6 +85,10 @@
                     <div class="text-center mt-3">
                         <asp:Button ID="btnConfirmarTurno" runat="server" OnClick="ConfirmarTurno_Click"
                                     Text="✅ Confirmar Turno" CssClass="btn btn-success btn-lg" />
+
+
+                         <asp:Button ID="btnVerServicios" runat="server" Text="🔍 Ver Servicios" CssClass="btn btn-primary btn-lg"
+                    OnClick="VerServicios_Click" Visible="false" />
                     </div>
                 </FooterTemplate>
             </asp:Repeater>

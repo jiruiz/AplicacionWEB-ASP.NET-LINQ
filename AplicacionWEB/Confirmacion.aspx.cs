@@ -33,19 +33,24 @@ namespace AplicacionWEB
                     return;
                 }
 
-                var serviciosConfirmados = from ts in mapeador.TurnosServicios
-                                           join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
-                                           where ts.IdTurno == idTurno
-                                           select new
-                                           {
-                                               NombreServicio = s.Nombre,
-                                               Precio = s.Precio
-                                           };
+                var serviciosConfirmados = (from ts in mapeador.TurnosServicios
+                                            join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
+                                            where ts.IdTurno == idTurno
+                                            group ts by new { ts.IdServicio, s.Nombre, s.Precio } into g
+                                            select new
+                                            {
+                                                IdServicio = g.Key.IdServicio,
+                                                NombreServicio = g.Key.Nombre,
+                                                Precio = g.Key.Precio,
+                                                Cantidad = g.Count(),
+                                                Total = g.Count() * g.Key.Precio
+                                            }).ToList();
 
-                decimal importeTotal = serviciosConfirmados.Sum(sc => sc.Precio);
+                // Calcular el importe total
+                decimal importeTotal = serviciosConfirmados.Sum(sc => sc.Total);
                 ViewState["ImporteTotal"] = importeTotal.ToString("N2");
 
-                RepeaterServiciosConfirmados.DataSource = serviciosConfirmados.ToList();
+                RepeaterServiciosConfirmados.DataSource = serviciosConfirmados;
                 RepeaterServiciosConfirmados.DataBind();
             }
             catch (Exception ex)
@@ -53,6 +58,7 @@ namespace AplicacionWEB
                 MostrarError($"❌ Error al cargar los datos: {ex.Message}");
             }
         }
+
 
         protected void Page_Unload(object sender, EventArgs e)
         {

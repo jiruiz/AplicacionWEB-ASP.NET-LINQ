@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -52,7 +51,7 @@ namespace AplicacionWEB
             catch (Exception ex)
             {
                 // Manejar posibles errores
-                Response.Write($"<p style='color:red;'>Error: {ex.Message}</p>");
+                MostrarMensaje($"Error al cargar los servicios: {ex.Message}", false);
             }
             finally
             {
@@ -63,6 +62,7 @@ namespace AplicacionWEB
                 }
             }
         }
+
         protected void RepeaterServicios_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
             if (e.CommandName == "Adquirir")
@@ -73,9 +73,10 @@ namespace AplicacionWEB
                 string usuarioLogueado = Session["UsuarioLogueado"]?.ToString();
                 if (string.IsNullOrEmpty(usuarioLogueado))
                 {
-                    LabelMensaje.Text = "Debe iniciar sesión para adquirir un servicio.";
-                    LabelMensaje.ForeColor = System.Drawing.Color.Red;
-                    LabelMensaje.Visible = true;
+                    MostrarMensaje("Debe iniciar sesión para adquirir un servicio.", false);
+
+                    // Hacer visible el botón de redirección a login
+                    btnLoginRedirect.Visible = true;
                     return;
                 }
 
@@ -104,16 +105,15 @@ namespace AplicacionWEB
                     mapeador.SubmitChanges();
 
                     // Mostrar un mensaje de éxito
-                    LabelMensaje.Text = "El servicio ha sido añadido al carrito con éxito.";
-                    LabelMensaje.ForeColor = System.Drawing.Color.Green;
-                    LabelMensaje.Visible = true;
+                    MostrarMensaje("El servicio ha sido añadido al carrito con éxito.", true);
+
+                    // Asegurarnos de que el botón de login no se muestre
+                    btnLoginRedirect.Visible = false;
                 }
                 catch (Exception ex)
                 {
                     // Manejar errores
-                    LabelMensaje.Text = $"Error al adquirir el servicio: {ex.Message}";
-                    LabelMensaje.ForeColor = System.Drawing.Color.Red;
-                    LabelMensaje.Visible = true;
+                    MostrarMensaje($"Error al adquirir el servicio: {ex.Message}", false);
                 }
                 finally
                 {
@@ -126,7 +126,21 @@ namespace AplicacionWEB
             }
         }
 
+        // Método para mostrar mensajes
+        private void MostrarMensaje(string mensaje, bool esExito)
+        {
+            LabelMensaje.Text = mensaje;
+            LabelMensaje.CssClass = esExito ? "service-message service-message-success" : "service-message";
+            LabelMensaje.Visible = true;
 
+            // Actualizar el panel de mensajes
+            UpdatePanelMensajes.Update();
+        }
 
+        // Evento para redirigir al login
+        protected void btnLoginRedirect_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Login.aspx");
+        }
     }
 }

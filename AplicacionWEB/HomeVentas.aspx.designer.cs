@@ -51,6 +51,15 @@ namespace AplicacionWEB
         protected global::System.Web.UI.WebControls.Label LabelMensaje;
 
         /// <summary>
+        /// Control btnLoginRedirect.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnLoginRedirect;
+
+        /// <summary>
         /// Control RepeaterServicios.
         /// </summary>
         /// <remarks>

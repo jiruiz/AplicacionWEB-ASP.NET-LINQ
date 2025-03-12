@@ -86,6 +86,43 @@
             padding: 15px;
         }
 
+       .service-message {
+            font-size: 1.2rem;
+            color: black; /* Color  para el texto */
+            padding: 10px;
+            text-align: center;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%; /* Ancho controlado */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .service-message-success {
+            background-color: #28a745; /* Color verde para el mensaje de éxito */
+        }
+
+        .service-message-container {
+            text-align: center; /* Centrado de los elementos dentro del contenedor */
+            margin-top: 20px;
+        }
+
+        .btn-login {
+            font-size: 1.1rem;
+            padding: 12px 25px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            width: 200px;
+            margin-top: 15px;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3;
+        }
     </style>
 </asp:Content>
 
@@ -96,12 +133,18 @@
         <div class="container mt-5">
             <h1 class="text-center text-primary">Servicios Activos</h1>
             <p class="text-center">Explora nuestros servicios disponibles para ti.</p>
+            
+            <!-- Contenedor de mensajes (Error o Éxito) -->
             <asp:UpdatePanel ID="UpdatePanelMensajes" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
-                    <asp:Label ID="LabelMensaje" runat="server" ForeColor="Red" Visible="false" />
+                    <div class="service-message-container">
+                        <asp:Label ID="LabelMensaje" runat="server" CssClass="service-message" Visible="false" />
+                        <asp:Button ID="btnLoginRedirect" runat="server" Text="Iniciar sesión" CssClass="btn-login" OnClick="btnLoginRedirect_Click" Visible="false" />
+                    </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
 
+            <!-- Lista de servicios -->
             <div class="row mt-4">
                 <asp:Repeater ID="RepeaterServicios" runat="server" OnItemCommand="RepeaterServicios_ItemCommand">
                     <ItemTemplate>
@@ -127,6 +170,5 @@
                 </asp:Repeater>
             </div>
         </div>
-
     </form>
 </asp:Content>

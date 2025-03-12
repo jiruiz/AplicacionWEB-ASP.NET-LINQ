@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
+using System.Web.UI;
 
 namespace AplicacionWEB
 {
@@ -54,8 +55,31 @@ namespace AplicacionWEB
                                      Total = g.Count() * g.Key.Precio
                                  }).ToList();
 
+                // Sumar el total de los servicios y guardarlo en ViewState
+                decimal importeTotal = servicios.Sum(s => s.Total);
+                ViewState["ImporteTotal"] = importeTotal.ToString("N2");
+
+
                 RepeaterCarrito.DataSource = servicios;
                 RepeaterCarrito.DataBind();
+
+                // Buscar los botones dentro del FooterTemplate del Repeater
+                if (RepeaterCarrito.Controls.Count > 0)
+                {
+                    Control footer = RepeaterCarrito.Controls[RepeaterCarrito.Controls.Count - 1]; // Último control es el Footer
+                    Button btnConfirmarTurno = footer.FindControl("btnConfirmarTurno") as Button;
+                    Button btnVerServicios = footer.FindControl("btnVerServicios") as Button;
+
+                    if (btnConfirmarTurno != null)
+                    {
+                        btnConfirmarTurno.Visible = servicios.Any();
+                    }
+                    if (btnVerServicios != null)
+                    {
+                        btnVerServicios.Visible = !servicios.Any(); // Se muestra solo si el carrito está vacío
+                    }
+                }
+
 
                 if (!servicios.Any())
                 {
@@ -67,6 +91,12 @@ namespace AplicacionWEB
                 MostrarMensaje($"Error al cargar el carrito: {ex.Message}", "Red");
             }
         }
+
+        protected void VerServicios_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("HomeVentas.aspx");
+        }
+
 
         protected void RepeaterCarrito_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
