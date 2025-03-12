@@ -272,8 +272,6 @@ namespace AplicacionWEB
 		
 		private EntitySet<TurnosServicios> _TurnosServicios;
 		
-		private EntitySet<TurnosServicios> _TurnosServicios1;
-		
 		private EntityRef<Categorias> _Categorias;
 		
     #region Definiciones de métodos de extensibilidad
@@ -299,7 +297,6 @@ namespace AplicacionWEB
 		public Servicios()
 		{
 			this._TurnosServicios = new EntitySet<TurnosServicios>(new Action<TurnosServicios>(this.attach_TurnosServicios), new Action<TurnosServicios>(this.detach_TurnosServicios));
-			this._TurnosServicios1 = new EntitySet<TurnosServicios>(new Action<TurnosServicios>(this.attach_TurnosServicios1), new Action<TurnosServicios>(this.detach_TurnosServicios1));
 			this._Categorias = default(EntityRef<Categorias>);
 			OnCreated();
 		}
@@ -461,19 +458,6 @@ namespace AplicacionWEB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Servicios_TurnosServicios1", Storage="_TurnosServicios1", ThisKey="IdServicio", OtherKey="IdServicio")]
-		public EntitySet<TurnosServicios> TurnosServicios1
-		{
-			get
-			{
-				return this._TurnosServicios1;
-			}
-			set
-			{
-				this._TurnosServicios1.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Categorias_Servicios", Storage="_Categorias", ThisKey="IdCategoria", OtherKey="IdCategoria", IsForeignKey=true)]
 		public Categorias Categorias
 		{
@@ -538,18 +522,6 @@ namespace AplicacionWEB
 		{
 			this.SendPropertyChanging();
 			entity.Servicios = null;
-		}
-		
-		private void attach_TurnosServicios1(TurnosServicios entity)
-		{
-			this.SendPropertyChanging();
-			entity.Servicios1 = this;
-		}
-		
-		private void detach_TurnosServicios1(TurnosServicios entity)
-		{
-			this.SendPropertyChanging();
-			entity.Servicios1 = null;
 		}
 	}
 	
@@ -796,8 +768,6 @@ namespace AplicacionWEB
 		
 		private EntityRef<Servicios> _Servicios;
 		
-		private EntityRef<Servicios> _Servicios1;
-		
 		private EntityRef<Turnos> _Turnos;
 		
     #region Definiciones de métodos de extensibilidad
@@ -817,7 +787,6 @@ namespace AplicacionWEB
 		public TurnosServicios()
 		{
 			this._Servicios = default(EntityRef<Servicios>);
-			this._Servicios1 = default(EntityRef<Servicios>);
 			this._Turnos = default(EntityRef<Turnos>);
 			OnCreated();
 		}
@@ -857,7 +826,7 @@ namespace AplicacionWEB
 			{
 				if ((this._IdServicio != value))
 				{
-					if ((this._Servicios.HasLoadedOrAssignedValue || this._Servicios1.HasLoadedOrAssignedValue))
+					if (this._Servicios.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -940,40 +909,6 @@ namespace AplicacionWEB
 						this._IdServicio = default(int);
 					}
 					this.SendPropertyChanged("Servicios");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Servicios_TurnosServicios1", Storage="_Servicios1", ThisKey="IdServicio", OtherKey="IdServicio", IsForeignKey=true)]
-		public Servicios Servicios1
-		{
-			get
-			{
-				return this._Servicios1.Entity;
-			}
-			set
-			{
-				Servicios previousValue = this._Servicios1.Entity;
-				if (((previousValue != value) 
-							|| (this._Servicios1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Servicios1.Entity = null;
-						previousValue.TurnosServicios1.Remove(this);
-					}
-					this._Servicios1.Entity = value;
-					if ((value != null))
-					{
-						value.TurnosServicios1.Add(this);
-						this._IdServicio = value.IdServicio;
-					}
-					else
-					{
-						this._IdServicio = default(int);
-					}
-					this.SendPropertyChanged("Servicios1");
 				}
 			}
 		}

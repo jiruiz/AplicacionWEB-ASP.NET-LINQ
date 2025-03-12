@@ -73,7 +73,9 @@ namespace AplicacionWEB
                 string usuarioLogueado = Session["UsuarioLogueado"]?.ToString();
                 if (string.IsNullOrEmpty(usuarioLogueado))
                 {
-                    Response.Write("<p style='color:red;'>Debe iniciar sesión para adquirir un servicio.</p>");
+                    LabelMensaje.Text = "Debe iniciar sesión para adquirir un servicio.";
+                    LabelMensaje.ForeColor = System.Drawing.Color.Red;
+                    LabelMensaje.Visible = true;
                     return;
                 }
 
@@ -102,12 +104,16 @@ namespace AplicacionWEB
                     mapeador.SubmitChanges();
 
                     // Mostrar un mensaje de éxito
-                    Response.Write("<p style='color:green;'>El servicio ha sido añadido al carrito con éxito.</p>");
+                    LabelMensaje.Text = "El servicio ha sido añadido al carrito con éxito.";
+                    LabelMensaje.ForeColor = System.Drawing.Color.Green;
+                    LabelMensaje.Visible = true;
                 }
                 catch (Exception ex)
                 {
                     // Manejar errores
-                    Response.Write($"<p style='color:red;'>Error al adquirir el servicio: {ex.Message}</p>");
+                    LabelMensaje.Text = $"Error al adquirir el servicio: {ex.Message}";
+                    LabelMensaje.ForeColor = System.Drawing.Color.Red;
+                    LabelMensaje.Visible = true;
                 }
                 finally
                 {
@@ -119,6 +125,7 @@ namespace AplicacionWEB
                 }
             }
         }
+
 
 
     }

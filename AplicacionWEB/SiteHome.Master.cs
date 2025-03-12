@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -28,42 +26,42 @@ namespace AplicacionWEB
             {
                 string rolUsuario = Session["RolUsuario"]?.ToString();
 
-                // Mostrar "Cerrar Sesión"
+                // Mostrar "Cerrar Sesión", "Carrito" y otras opciones si hay usuario logueado
                 PhCerrarSesion.Visible = true;
                 PhIniciarSesion.Visible = false;
                 PhCarrito.Visible = true;
+                PhHomeVentas.Visible = true;
 
                 // Mostrar opciones administrativas solo si es administrador
                 if (rolUsuario == "Admin")
                 {
                     PhAdmin.Visible = true;
-                    PhHomeVentas.Visible = true;
                     PhDashboard.Visible = true;
                     PhCategorias.Visible = true;
                     PhUsuarios.Visible = true;
-                    PhCarrito.Visible = true;
-
                 }
                 else
                 {
                     PhAdmin.Visible = false;
-                    PhHomeVentas.Visible = true;
-
-
+                    PhDashboard.Visible = false;
+                    PhCategorias.Visible = false;
+                    PhUsuarios.Visible = false;
                 }
             }
             else
             {
                 // Mostrar solo "Iniciar Sesión" si no hay usuario logueado
-                PhHomeVentas.Visible = true;
                 PhCerrarSesion.Visible = false;
                 PhIniciarSesion.Visible = true;
+                PhHomeVentas.Visible = true;
+
+                // Ocultar las opciones administrativas
                 PhAdmin.Visible = false;
                 PhCategorias.Visible = false;
                 PhDashboard.Visible = false;
-                PhUsuarios.Visible = false; 
+                PhUsuarios.Visible = false;
+                PhCarrito.Visible = false; // Opcional: Si no hay sesión, ocultar el carrito
             }
         }
-
     }
 }

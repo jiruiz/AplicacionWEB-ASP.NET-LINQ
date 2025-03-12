@@ -17,7 +17,6 @@
       <Column Name="Estado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="IdCategoria" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Servicios_TurnosServicios" Member="TurnosServicios" ThisKey="IdServicio" OtherKey="IdServicio" Type="TurnosServicios" />
-      <Association Name="Servicios_TurnosServicios1" Member="TurnosServicios1" ThisKey="IdServicio" OtherKey="IdServicio" Type="TurnosServicios" />
       <Association Name="Categorias_Servicios" Member="Categorias" ThisKey="IdCategoria" OtherKey="IdCategoria" Type="Categorias" IsForeignKey="true" />
     </Type>
   </Table>
@@ -39,7 +38,6 @@
       <Column Name="IdTurnosServicios" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Servicios_TurnosServicios" Member="Servicios" ThisKey="IdServicio" OtherKey="IdServicio" Type="Servicios" IsForeignKey="true" />
-      <Association Name="Servicios_TurnosServicios1" Member="Servicios1" ThisKey="IdServicio" OtherKey="IdServicio" Type="Servicios" IsForeignKey="true" />
       <Association Name="Turnos_TurnosServicios" Member="Turnos" ThisKey="IdTurno" OtherKey="IdTurno" Type="Turnos" IsForeignKey="true" DeleteRule="SET NULL" />
     </Type>
   </Table>
