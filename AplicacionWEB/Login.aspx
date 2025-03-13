@@ -1,6 +1,25 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/SiteHome.Master" CodeBehind="Login.aspx.cs" Inherits="AplicacionWEB.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <style>
+        /* Estilo para el botón de iniciar sesión */
+        .btn-primary {
+            background: linear-gradient(to right, #007bff, #6610f2);
+            border-color: #0056b3; /* Azul oscuro para el borde */
+            color: indianred; /* Naranja para el texto */
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            width: 100%; /* Hacer que el botón ocupe el 100% del ancho */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Azul oscuro cuando pasa el ratón */
+            color: darkorange; /* Cambiar el color del texto a blanco al pasar el ratón */
+        }
+
+    </style>
 </asp:Content>
 
 

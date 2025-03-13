@@ -2,54 +2,57 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Modificar Usuarios</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
+    <style>
+        .container {
+            max-width: 900px;
+            margin-top: 40px;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .btn-group .btn {
+            margin: 2px;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <form id="form1" runat="server">
-        <div class="container">
-            <h1>Listado de Usuarios</h1>
 
-            <!-- GridView para editar y eliminar usuarios -->
-            <asp:GridView CssClass="table table-striped" ID="grillaUsuarios" runat="server" 
+    <div class="container">
+        <h1>Gestión de Usuarios</h1>
+        <div class="table-responsive">
+            <asp:GridView CssClass="table table-hover table-bordered" ID="grillaUsuarios" runat="server"
                 AutoGenerateColumns="False" DataKeyNames="IdUsuario"
                 OnRowEditing="grillaUsuarios_RowEditing"
                 OnRowUpdating="grillaUsuarios_RowUpdating"
                 OnRowCancelingEdit="grillaUsuarios_RowCancelingEdit"
                 OnRowDeleting="grillaUsuarios_RowDeleting">
-
+                
                 <Columns>
-                    <asp:TemplateField HeaderText="ID">
-                        <ItemTemplate>
-                            <asp:Label ID="labelID" runat="server" Text='<%# Bind("IdUsuario") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
-
-                    <asp:TemplateField HeaderText="Usuario">
-                        <ItemTemplate>
-                            <asp:Label ID="labelUsuario" runat="server" Text='<%# Bind("Usuario") %>'></asp:Label>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-
-
-
-
+                    <asp:BoundField DataField="IdUsuario" HeaderText="ID" ReadOnly="True" />
+                    <asp:BoundField DataField="Usuario" HeaderText="Usuario" ReadOnly="True" />
+                    
                     <asp:TemplateField HeaderText="Nombre">
                         <ItemTemplate>
                             <asp:Label ID="labelNombre" runat="server" Text='<%# Bind("Nombre") %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:TextBox ID="txtNombre" runat="server" Text='<%# Bind("Nombre") %>'></asp:TextBox>
+                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Text='<%# Bind("Nombre") %>'></asp:TextBox>
                         </EditItemTemplate>
                     </asp:TemplateField>
-
+                    
                     <asp:TemplateField HeaderText="Apellido">
                         <ItemTemplate>
                             <asp:Label ID="labelApellido" runat="server" Text='<%# Bind("Apellido") %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:TextBox ID="txtApellido" runat="server" Text='<%# Bind("Apellido") %>'></asp:TextBox>
+                            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" Text='<%# Bind("Apellido") %>'></asp:TextBox>
                         </EditItemTemplate>
                     </asp:TemplateField>
 
@@ -58,7 +61,7 @@
                             <asp:Label ID="labelEmail" runat="server" Text='<%# Bind("Email") %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:TextBox ID="txtEmail" runat="server" Text='<%# Bind("Email") %>'></asp:TextBox>
+                            <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Text='<%# Bind("Email") %>'></asp:TextBox>
                         </EditItemTemplate>
                     </asp:TemplateField>
 
@@ -67,8 +70,7 @@
                             <asp:Label ID="labelRol" runat="server" Text='<%# Bind("Rol") %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:DropDownList ID="ddlRol" runat="server">
-                                <asp:ListItem Value="" Text="Seleccione un rol"></asp:ListItem>
+                            <asp:DropDownList ID="ddlRol" runat="server" CssClass="form-select">
                                 <asp:ListItem Value="Admin" Text="Admin"></asp:ListItem>
                                 <asp:ListItem Value="Usuario" Text="Usuario"></asp:ListItem>
                                 <asp:ListItem Value="Supervisor" Text="Supervisor"></asp:ListItem>
@@ -76,32 +78,42 @@
                         </EditItemTemplate>
                     </asp:TemplateField>
 
-
-
-                    <asp:TemplateField HeaderText="Contraseña">
-                        <ItemTemplate>
-                            <asp:Label ID="labelContrasena" runat="server" Text="********"></asp:Label> <!-- Siempre muestra asteriscos -->
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:TextBox ID="txtContrasena" runat="server" TextMode="Password" Placeholder="Nueva contraseña"></asp:TextBox>
-                        </EditItemTemplate>
-                    </asp:TemplateField>
-
-
                     <asp:TemplateField HeaderText="Activo">
                         <ItemTemplate>
                             <asp:Label ID="labelActivo" runat="server" Text='<%# (Convert.ToBoolean(Eval("Activo")) ? "Sí" : "No") %>'></asp:Label>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:CheckBox ID="chkActivo" runat="server" Checked='<%# Bind("Activo") %>'></asp:CheckBox>
+                            <asp:CheckBox ID="chkActivo" runat="server" Checked='<%# Bind("Activo") %>' CssClass="form-check-input"></asp:CheckBox>
                         </EditItemTemplate>
                     </asp:TemplateField>
 
-                    <asp:CommandField ButtonType="Link" ShowEditButton="True" ShowDeleteButton="True" />
+                    <asp:TemplateField HeaderText="Acciones">
+                        <ItemTemplate>
+                            <div class="btn-group" role="group">
+                                <asp:LinkButton ID="btnEditar" runat="server" CommandName="Edit" CssClass="btn btn-primary btn-sm">
+                                    ✏️ Editar
+                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnEliminar" runat="server" CommandName="Delete" CssClass="btn btn-danger btn-sm">
+                                    ❌ Eliminar
+                                </asp:LinkButton>
+                            </div>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <div class="btn-group" role="group">
+                                <asp:LinkButton ID="btnGuardar" runat="server" CommandName="Update" CssClass="btn btn-success btn-sm">
+                                    ✅ Guardar
+                                </asp:LinkButton>
+                                <asp:LinkButton ID="btnCancelar" runat="server" CommandName="Cancel" CssClass="btn btn-secondary btn-sm">
+                                    ❌ Cancelar
+                                </asp:LinkButton>
+                            </div>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-
-            <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
         </div>
-    </form>
+
+        <asp:Label ID="lblMensaje" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
+    </div>
+        </form>
 </asp:Content>

@@ -3,127 +3,134 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Servicios Activos</title>
     <!-- Estilos personalizados -->
-    <style>
-        .service-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    <script>
+        // Ocultar mensajes después de 5 segundos
+        setTimeout(function () {
+            var mensaje = document.getElementById('<%= LabelMensaje.ClientID %>');
+        if (mensaje) {
+            mensaje.style.transition = "opacity 0.5s ease";
+            mensaje.style.opacity = "0";
+            setTimeout(() => { mensaje.style.display = "none"; }, 500);
         }
+    }, 5000);
+    </script>
+<style>
+    .service-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.1);
+        background: white;
+        color: #007bff;
+        padding: 20px;
+        text-align: center;
+    }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        }
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
 
-        .service-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #343a40;
-            text-align: center;
-            margin-bottom: 10px;
-        }
+    .service-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #0056b3;
+        margin-top: 10px;
+    }
 
-        .service-price {
-            font-size: 1.3rem;
-            color: #28a745;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 15px;
-        }
+    .service-description {
+        font-size: 1rem;
+        background: rgba(0, 123, 255, 0.08);
+        padding: 12px;
+        border-radius: 8px;
+        color: #0056b3;
+        font-weight: 500;
+    }
 
-        .service-description {
-            font-size: 1rem;
-            color: #6c757d;
-            text-align: center;
-            margin-bottom: 20px;
-            line-height: 1.6;
-            padding: 10px 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    .service-price, .service-duration {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #007bff;
+    }
 
-        .service-duration {
-            font-size: 1rem;
-            color: #495057;
-            text-align: center;
-            margin-bottom: 15px;
-        }
+    .service-icon {
+        font-size: 3rem;
+        color: #6610f2;
+        margin-bottom: 15px;
+    }
 
-        .service-icon {
-            font-size: 3rem;
-            color: #28a745;
-            margin-bottom: 15px;
-            text-align: center;
-        }
+    /* Estilo para los botones */
+    .btn-primary, 
+    .btn-adquirir, 
+    .btn-login {
+        font-size: 1.1rem;
+        padding: 12px 20px;
+        background: linear-gradient(to right, #007bff, #6610f2);
+        border-color: #0056b3; /* Azul oscuro para el borde */
+        color: goldenrod; /* Naranja para el texto */
+        font-weight: bold;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+        width: 100%;
+        text-transform: uppercase;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        .btn-adquirir {
-            font-size: 1.1rem;
-            padding: 12px 25px;
-            background-color: #007bff;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            text-align: center;
-        }
+    .btn-primary:hover, 
+    .btn-adquirir:hover, 
+    .btn-login:hover {
+        background-color: #0056b3; /* Azul oscuro en hover */
+        color: greenyellow; /* Texto en darkorange */
+        transform: translateY(-3px);
+    }
 
-        .btn-adquirir:hover {
-            background-color: #0056b3;
-        }
+    .card-footer {
+        background: rgba(0, 123, 255, 0.08);
+        padding: 15px;
+        border-top: 1px solid rgba(0, 123, 255, 0.15);
+    }
 
-        .card-body {
-            padding: 30px;
-            position: relative;
-            text-align: center;
-        }
+    /* Mensajes con iconos */
+    .service-message-container {
+        text-align: center;
+        margin-top: 20px;
+    }
 
-        .card-footer {
-            background-color: #f8f9fa;
-            border-top: 1px solid #e9ecef;
-            padding: 15px;
-        }
+    .service-message {
+        font-size: 1.1rem;
+        font-weight: 500;
+        padding: 15px 20px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        max-width: 80%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        border-left: 5px solid;
+        transition: all 0.3s ease-in-out;
+        justify-content: center;
+    }
 
-       .service-message {
-            font-size: 1.2rem;
-            color: black; /* Color  para el texto */
-            padding: 10px;
-            text-align: center;
-            margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 80%; /* Ancho controlado */
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .service-message i {
+        font-size: 1.5rem;
+        margin-right: 10px;
+    }
+
+    /* Mensaje de Éxito */
+    .service-message-success {
+        background-color: #e9f7ef;
+        color: #218838;
+        border-color: #28a745;
+    }
+
+    /* Mensaje de Error */
+    .service-message-error {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-color: #dc3545;
+    }
+</style>
 
 
-        .service-message-success {
-            background-color: #28a745; /* Color verde para el mensaje de éxito */
-        }
-
-        .service-message-container {
-            text-align: center; /* Centrado de los elementos dentro del contenedor */
-            margin-top: 20px;
-        }
-
-        .btn-login {
-            font-size: 1.1rem;
-            padding: 12px 25px;
-            background-color: #007bff;
-            border: none;
-            color: white;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-            width: 200px;
-            margin-top: 15px;
-        }
-
-        .btn-login:hover {
-            background-color: #0056b3;
-        }
-    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">

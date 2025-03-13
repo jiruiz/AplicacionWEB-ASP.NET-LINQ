@@ -1,28 +1,68 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/SiteHome.Master" CodeBehind="Carrito.aspx.cs" Inherits="AplicacionWEB.Carrito" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <style>
-        .carrito-container {
-            max-width: 700px;
-            margin: auto;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+       <script>
+           // Espera 5 segundos y luego oculta el mensaje de error o confirmación.
+           setTimeout(function () {
+               var mensaje = document.getElementById('<%= MensajeLabel.ClientID %>');  // Cambiar a MensajeLabel.
+        if (mensaje && mensaje.style.display !== "none") {  // Asegurarse de que el mensaje no está oculto.
+            mensaje.style.transition = "opacity 0.5s ease";  // Transición de opacidad para el desvanecimiento.
+            mensaje.style.opacity = "0";  // Hacerlo transparente.
+            setTimeout(function () {
+                mensaje.style.display = "none";  // Después de la transición, ocultarlo completamente.
+            }, 500);  // Esperar medio segundo para que la transición se complete.
         }
-        .total-container {
-            background: #d4edda;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: right;
-        }
-        .error-message {
-            color: red;
-            font-weight: bold;
-            text-align: center;
-        }
+    }, 5000);  // Esperar 5 segundos.
+       </script>
+<style>
+    .carrito-container {
+        max-width: 700px;
+        margin: auto;
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    .total-container {
+        background: #d4edda;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: right;
+    }
 
-    </style>
+    /* Estilo de los mensajes */
+    .error-message, .success-message {
+        font-weight: bold;
+        font-size: 1.2rem;
+        padding: 15px;
+        margin: 20px auto;
+        width: 80%; /* Controla el tamaño del mensaje */
+        max-width: 500px; /* Tamaño máximo */
+        border-radius: 5px;
+        text-align: center;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        transition: opacity 0.5s ease;
+        opacity: 1;
+    }
+
+    /* Mensaje de error */
+    .error-message {
+        color: #721c10; /* Rojo más oscuro */
+        background-color: #c3e6cb; /* Fondo rojo suave */
+        border: 1px solid #03ff00; /* Borde suave */
+    }
+
+    /* Mensaje de éxito (opcional) */
+    .success-message {
+        color: #155724; /* Verde */
+        background-color: #c3e6cb; /* Fondo verde claro */
+        border: 5px solid #f2fc00; /* Borde verde claro */
+    }
+
+</style>
+
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
