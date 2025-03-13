@@ -42,6 +42,15 @@ namespace AplicacionWEB
         protected global::System.Web.UI.WebControls.Label lblUsuariosInactivos;
 
         /// <summary>
+        /// Control lblVelocidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblVelocidad;
+
+        /// <summary>
         /// Control lblTotalServicios.
         /// </summary>
         /// <remarks>

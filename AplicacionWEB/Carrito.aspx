@@ -47,18 +47,12 @@
     }
 
     /* Mensaje de error */
-    .error-message {
-        color: #721c10; /* Rojo más oscuro */
-        background-color: #c3e6cb; /* Fondo rojo suave */
-        border: 1px solid #03ff00; /* Borde suave */
-    }
+    .error-message, .success-message {
+    margin-left: auto;
+    margin-right: auto; /* Asegura que el margen sea automático en ambos lados */
+    display: block; /* Esto alinea el elemento contenedor al centro */
+}
 
-    /* Mensaje de éxito (opcional) */
-    .success-message {
-        color: #155724; /* Verde */
-        background-color: #c3e6cb; /* Fondo verde claro */
-        border: 5px solid #f2fc00; /* Borde verde claro */
-    }
 
 </style>
 

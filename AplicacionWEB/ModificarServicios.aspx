@@ -12,10 +12,12 @@
             margin-bottom: 20px;
         }
         .table {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dee2e6; /* Borde exterior */
+            border-radius: 10px; /* Bordes redondeados, opcional */
+            overflow: hidden; /* Evita que elementos sobresalgan */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
         }
+
         .table-responsive {
             overflow-x: auto;
         }

@@ -3,22 +3,44 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Modificar Usuarios</title>
     <style>
-        .container {
-            max-width: 900px;
-            margin-top: 40px;
-        }
-        h1 {
-            color: #007bff;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .table-responsive {
-            overflow-x: auto;
-        }
-        .btn-group .btn {
-            margin: 2px;
-        }
-    </style>
+     .container {
+         max-width: 900px;
+         margin-top: 40px;
+     }
+     h1 {
+         color: #007bff;
+         text-align: center;
+         margin-bottom: 20px;
+     }
+     .table {
+         border: 1px solid #dee2e6; /* Borde exterior */
+         border-radius: 10px; /* Bordes redondeados, opcional */
+         overflow: hidden; /* Evita que elementos sobresalgan */
+         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+     }
+
+     .table-responsive {
+         overflow-x: auto;
+     }
+     .btn-primary {
+         background-color: #007bff;
+         border: none;
+     }
+     .btn-primary:hover {
+         background-color: #0056b3;
+     }
+     .btn-danger {
+         background-color: #dc3545;
+         border: none;
+     }
+     .btn-danger:hover {
+         background-color: #a71d2a;
+     }
+     .form-control {
+         border-radius: 5px;
+     }
+ </style>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
