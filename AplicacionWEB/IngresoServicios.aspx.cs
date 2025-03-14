@@ -49,11 +49,6 @@ namespace AplicacionWEB
 
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-C9H0QQO\\SQLEXPRESS;Initial Catalog=templateDB;Integrated Security=True;");
-            conn.Open();
-
-            DataClasses1DataContext mapeador = new DataClasses1DataContext(conn);
-
             try
             {
                 // Validar la selección de categoría
@@ -63,49 +58,62 @@ namespace AplicacionWEB
                     return;
                 }
 
-                // Verificar si el campo de precio está vacío o tiene valores inválidos
-                decimal precio;
-                if (!decimal.TryParse(txtPrecio.Text, out precio))
+                // Verificar si el precio es un número válido
+                if (!decimal.TryParse(txtPrecio.Text, out decimal precio))
                 {
                     lblMensaje.Text = "Error: Ingrese un precio válido.";
                     return;
                 }
 
                 // Verificar si la duración es un número entero válido
-                int duracion;
-                if (!int.TryParse(txtDuracion.Text, out duracion))
+                if (!int.TryParse(txtDuracion.Text, out int duracion))
                 {
                     lblMensaje.Text = "Error: Ingrese una duración válida.";
                     return;
                 }
 
-                // Crear el objeto servicio
-                Servicios servicio = new Servicios
+                // Conexión a la base de datos
+                using (SqlConnection conn = new SqlConnection("Data Source=DESKTOP-C9H0QQO\\SQLEXPRESS;Initial Catalog=templateDB;Integrated Security=True;"))
                 {
-                    Nombre = txtNombre.Text,
-                    Descripcion = txtDescripcion.Text,
-                    Precio = precio,
-                    DuracionMinutos = duracion,
-                    Estado = CheckBox1.Checked,
-                    IdCategoria = Convert.ToInt32(ddlCategoria.SelectedValue) // Asignar categoría
-                };
+                    conn.Open();
+                    DataClasses1DataContext mapeador = new DataClasses1DataContext(conn);
 
-                // Guardar en la base de datos
-                mapeador.Servicios.InsertOnSubmit(servicio);
-                mapeador.SubmitChanges();
+                    // Crear el objeto servicio
+                    Servicios servicio = new Servicios
+                    {
+                        Nombre = txtNombre.Text.Trim(),
+                        Descripcion = txtDescripcion.Text.Trim(),
+                        Precio = precio,
+                        DuracionMinutos = duracion,
+                        Estado = CheckBox1.Checked,
+                        IdCategoria = Convert.ToInt32(ddlCategoria.SelectedValue) // Asignar categoría
+                    };
 
-                // Mensaje de éxito
-                lblMensaje.Text = "Servicio guardado con éxito.";
-                Response.Redirect("MostrarServicios.aspx");
+                    // Guardar en la base de datos
+                    mapeador.Servicios.InsertOnSubmit(servicio);
+                    mapeador.SubmitChanges();
+                }
+
+                // Mostrar mensaje de éxito
+                lblMensaje.CssClass = "text-success";
+                lblMensaje.Text = "✅ Servicio guardado con éxito.";
+
+                // Limpiar los campos después de guardar
+                txtNombre.Text = "";
+                txtDescripcion.Text = "";
+                txtPrecio.Text = "";
+                txtDuracion.Text = "";
+                ddlCategoria.SelectedIndex = 0;
+                CheckBox1.Checked = false;
+
+                
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = "Ocurrió un error al guardar el servicio: " + ex.Message;
-            }
-            finally
-            {
-                conn.Close();
+                lblMensaje.CssClass = "text-danger";
+                lblMensaje.Text = "❌ Ocurrió un error al guardar el servicio: " + ex.Message;
             }
         }
+
     }
 }

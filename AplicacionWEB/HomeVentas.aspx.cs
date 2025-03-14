@@ -103,9 +103,11 @@ namespace AplicacionWEB
                     // Insertar el registro
                     mapeador.TurnosServicios.InsertOnSubmit(relacion);
                     mapeador.SubmitChanges();
+                    // Obtener el nombre del servicio adquirido
+                    string nombreServicio = mapeador.Servicios.First(s => s.IdServicio == idServicio).Nombre;
 
-                    // Mostrar un mensaje de éxito
-                    MostrarMensaje("El servicio ha sido añadido al carrito con éxito.", true);
+                    // Mostrar un mensaje de éxito con el nombre del servicio
+                    MostrarMensaje($"El servicio '{nombreServicio}' ha sido añadido al carrito.", true);
 
                     // Asegurarnos de que el botón de login no se muestre
                     btnLoginRedirect.Visible = false;

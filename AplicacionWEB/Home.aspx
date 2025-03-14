@@ -33,24 +33,25 @@
         .icon-lg {
             font-size: 3rem;
         }
-         <style>
+       
      /* Estilo para el botón de iniciar sesión */
+     /*
      .btn {
          background: linear-gradient(to right, #007bff, #6610f2);
-         border-color: #ff6a00; /* Azul oscuro para el borde */
-         color: indianred; /* Naranja para el texto */
+         border-color: #ff6a00;
+         color: indianred;
          font-weight: bold;
          padding: 12px 20px;
          border-radius: 5px;
          transition: background-color 0.3s ease;
-         width: 100%; /* Hacer que el botón ocupe el 100% del ancho */
+         width: 100%; 
      }
 
      .btn:hover {
-         background-color: #0056b3; /* Azul oscuro cuando pasa el ratón */
-         color: darkorange; /* Cambiar el color del texto a blanco al pasar el ratón */
+         background-color: #0056b3; 
+         color: darkorange; 
      }
-
+     */
 
     </style>
 </asp:Content>

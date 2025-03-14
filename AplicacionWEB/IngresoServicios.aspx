@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="text-center">
-                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-success px-4" Text="Guardar" />
+                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-success px-4" Text="Guardar" OnClick="btnGuardar_Click" />
                     <asp:HyperLink NavigateUrl="MostrarServicios.aspx" Text="Volver" runat="server" CssClass="btn btn-secondary ms-3" />
                 </div>
             </div>

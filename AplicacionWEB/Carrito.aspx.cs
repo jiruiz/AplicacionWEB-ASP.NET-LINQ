@@ -115,6 +115,7 @@ namespace AplicacionWEB
             }
 
             int idServicio;
+
             if (!int.TryParse(e.CommandArgument.ToString().Split(':')[0], out idServicio))
             {
                 MostrarMensaje("⚠️ El ID del servicio no es válido.", "Red");
@@ -123,6 +124,8 @@ namespace AplicacionWEB
 
             if (e.CommandName == "Eliminar")
             {
+                string nombreServicio = mapeador.Servicios.First(s => s.IdServicio == idServicio).Nombre;
+
                 var serviciosAEliminar = mapeador.TurnosServicios
                     .Where(ts => ts.IdUsuario == usuario.IdUsuario && ts.IdServicio == idServicio && ts.IdTurno == null)
                     .ToList();
@@ -131,16 +134,17 @@ namespace AplicacionWEB
                 {
                     mapeador.TurnosServicios.DeleteAllOnSubmit(serviciosAEliminar);
                     mapeador.SubmitChanges();
-                    MostrarMensaje("✅ Servicio eliminado del carrito.", "Green");
+                    MostrarMensaje($"✅ El servicio '{nombreServicio}' ha sido eliminado del carrito.", "Green");
                 }
                 else
                 {
-                    MostrarMensaje("⚠️ No se encontró el servicio en el carrito.", "Red");
+                    MostrarMensaje($"⚠️ No se encontró el servicio '{nombreServicio}' en el carrito.", "Red");
                 }
             }
             else if (e.CommandName == "ModificarCantidad")
             {
                 string accion = e.CommandArgument.ToString().Split(':')[1];
+                string nombreServicio = mapeador.Servicios.First(s => s.IdServicio == idServicio).Nombre;
 
                 if (accion == "incrementar")
                 {
@@ -153,7 +157,7 @@ namespace AplicacionWEB
 
                     mapeador.TurnosServicios.InsertOnSubmit(nuevo);
                     mapeador.SubmitChanges();
-                    MostrarMensaje("✅ Cantidad incrementada.", "Green");
+                    MostrarMensaje($"✅ Unidad de '{nombreServicio}' agregada al carrito.", "Green");
                 }
                 else if (accion == "decrementar")
                 {
@@ -165,11 +169,11 @@ namespace AplicacionWEB
                     {
                         mapeador.TurnosServicios.DeleteOnSubmit(servicio);
                         mapeador.SubmitChanges();
-                        MostrarMensaje("✅ Cantidad decrementada.", "Green");
+                        MostrarMensaje($"✅ Unidad de '{nombreServicio}' eliminada del carrito.", "Green");
                     }
                     else
                     {
-                        MostrarMensaje("⚠️ No se encontró un servicio para eliminar.", "Red");
+                        MostrarMensaje($"⚠️ No se encontró una unidad del servicio '{nombreServicio}' para eliminar.", "Red");
                     }
                 }
             }
