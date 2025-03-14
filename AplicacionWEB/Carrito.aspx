@@ -15,6 +15,8 @@
     }, 5000);  // Esperar 5 segundos.
        </script>
 <style>
+
+
     .carrito-container {
         max-width: 700px;
         margin: auto;
@@ -22,12 +24,16 @@
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centra el contenido */
     }
+
     .total-container {
         background: #d4edda;
         padding: 10px;
         border-radius: 5px;
-        text-align: right;
+        text-align: center; /* Centrado del texto */
     }
 
     /* Estilo de los mensajes */
@@ -46,18 +52,12 @@
         opacity: 1;
     }
 
-    /* Mensaje de error */
-    .error-message, .success-message {
-    margin-left: auto;
-    margin-right: auto; /* Asegura que el margen sea automático en ambos lados */
-    display: block; /* Esto alinea el elemento contenedor al centro */
-    }
     /* Contenedor estilizado */
     .stylish-group {
         margin-bottom: 20px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center; /* Centra las etiquetas y campos */
     }
 
     /* Etiquetas estilizadas */
@@ -66,6 +66,7 @@
         font-weight: bold;
         margin-bottom: 8px;
         color: #007bff; /* Azul brillante */
+        text-align: center; /* Asegura el texto centrado */
     }
 
     /* Entradas de fecha y hora estilizadas */
@@ -78,6 +79,7 @@
         font-size: 1rem;
         transition: all 0.3s ease-in-out;
         box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Centra el texto dentro del campo */
     }
 
     /* Efecto al enfocar las entradas */
@@ -98,6 +100,8 @@
         border-radius: 50px;
         transition: transform 0.2s, box-shadow 0.3s;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center; /* Centra el texto del botón */
+        margin: 0 auto; /* Centra el botón */
     }
 
     /* Efecto al pasar el mouse sobre el botón */
@@ -107,6 +111,29 @@
         background: linear-gradient(to right, #218838, #0056b3); /* Gradiente al pasar el mouse */
     }
 
+    /* Dropdown estilizado */
+    .stylish-dropdown {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px;
+        border: 2px solid #ced4da;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: #495057;
+        background: white;
+        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center; /* Centra el texto dentro del dropdown */
+        margin: 0 auto; /* Centra el dropdown */
+    }
+
+    /* Hover y focus del dropdown */
+    .stylish-dropdown:focus,
+    .stylish-dropdown:hover {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+    }
 </style>
 
 
@@ -174,9 +201,20 @@
                         <asp:TextBox ID="txtFechaCita" runat="server" CssClass="stylish-input form-control" TextMode="Date"></asp:TextBox>
                     </div>
                     <div class="form-group stylish-group">
-                        <label for="txtHoraCita" class="stylish-label">Hora de la cita:</label>
-                        <asp:TextBox ID="txtHoraCita" runat="server" CssClass="stylish-input form-control" TextMode="Time"></asp:TextBox>
-                    </div>
+                    <label for="dropdownHoraCita" class="stylish-label">Selecciona la hora de la cita:</label>
+                    <!-- Cambiar el TextBox por un DropDownList -->
+                    <asp:DropDownList ID="dropdownHoraCita" runat="server" CssClass="stylish-dropdown">
+                        <asp:ListItem Text="Selecciona una hora" Value="" />
+                        <asp:ListItem Text="09:00 AM" Value="09:00" />
+                        <asp:ListItem Text="10:00 AM" Value="10:00" />
+                        <asp:ListItem Text="11:00 AM" Value="11:00" />
+                        <asp:ListItem Text="12:00 PM" Value="12:00" />
+                        <asp:ListItem Text="01:00 PM" Value="13:00" />
+                        <asp:ListItem Text="02:00 PM" Value="14:00" />
+                        <asp:ListItem Text="03:00 PM" Value="15:00" />
+                        <asp:ListItem Text="04:00 PM" Value="16:00" />
+                        <asp:ListItem Text="05:00 PM" Value="17:00" />
+                    </asp:DropDownList>
 
                     <div class="text-center mt-3">
                         <asp:Button ID="btnConfirmarTurno" runat="server" OnClick="ConfirmarTurno_Click"
@@ -188,6 +226,7 @@
                     </div>
                 </FooterTemplate>
             </asp:Repeater>
+
 
         </div>
     </form>

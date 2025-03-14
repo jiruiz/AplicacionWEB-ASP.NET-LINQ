@@ -207,7 +207,7 @@ namespace AplicacionWEB
                     return;
                 }
 
-                // Encuentra el FooterTemplate del Repeater para buscar los controles txtFechaCita y txtHoraCita
+                // Encuentra el FooterTemplate del Repeater para buscar los controles txtFechaCita y dropdownHoraCita
                 RepeaterItem footer = RepeaterCarrito.Controls[RepeaterCarrito.Controls.Count - 1] as RepeaterItem;
                 if (footer == null)
                 {
@@ -217,17 +217,30 @@ namespace AplicacionWEB
 
                 // Busca los controles de FechaCita y HoraCita
                 TextBox txtFechaCita = footer.FindControl("txtFechaCita") as TextBox;
-                TextBox txtHoraCita = footer.FindControl("txtHoraCita") as TextBox;
+                DropDownList dropdownHoraCita = footer.FindControl("dropdownHoraCita") as DropDownList;
 
-                if (txtFechaCita == null || txtHoraCita == null)
+                if (txtFechaCita == null || dropdownHoraCita == null)
                 {
                     MostrarMensaje("⚠️ No se pudo obtener la fecha o la hora para la cita.", "Red");
                     return;
                 }
 
-                // Asigna los valores ingresados por el usuario
-                DateTime fechaCita = DateTime.Parse(txtFechaCita.Text); // Fecha de la cita
-                TimeSpan horaCita = TimeSpan.Parse(txtHoraCita.Text);   // Hora de la cita
+                // Validar y asignar los valores ingresados por el usuario
+                if (string.IsNullOrEmpty(txtFechaCita.Text))
+                {
+                    MostrarMensaje("Por favor, selecciona una fecha válida.", "Red");
+                    return;
+                }
+
+                DateTime fechaCita = DateTime.Parse(txtFechaCita.Text);
+
+                if (string.IsNullOrEmpty(dropdownHoraCita.SelectedValue))
+                {
+                    MostrarMensaje("Por favor, selecciona una hora válida.", "Red");
+                    return;
+                }
+
+                TimeSpan horaCita = TimeSpan.Parse(dropdownHoraCita.SelectedValue);
 
                 // Creación del nuevo turno
                 Turnos nuevoTurno = new Turnos
@@ -270,6 +283,7 @@ namespace AplicacionWEB
                 MostrarMensaje($"Error al confirmar el turno: {ex.Message}", "Red");
             }
         }
+
 
 
 
