@@ -181,6 +181,7 @@ namespace AplicacionWEB
         {
             try
             {
+                // Verifica si el usuario está logueado
                 string usuarioLogueado = Session["UsuarioLogueado"]?.ToString();
                 if (string.IsNullOrEmpty(usuarioLogueado))
                 {
@@ -188,6 +189,7 @@ namespace AplicacionWEB
                     return;
                 }
 
+                // Obtén el usuario logueado
                 var usuario = mapeador.Usuarios.FirstOrDefault(u => u.Usuario == usuarioLogueado);
                 if (usuario == null)
                 {
@@ -195,6 +197,7 @@ namespace AplicacionWEB
                     return;
                 }
 
+                // Recupera los servicios del carrito del usuario
                 var serviciosEnCarrito = mapeador.TurnosServicios
                     .Where(ts => ts.IdUsuario == usuario.IdUsuario && ts.IdTurno == null).ToList();
 
@@ -204,30 +207,61 @@ namespace AplicacionWEB
                     return;
                 }
 
+                // Encuentra el FooterTemplate del Repeater para buscar los controles txtFechaCita y txtHoraCita
+                RepeaterItem footer = RepeaterCarrito.Controls[RepeaterCarrito.Controls.Count - 1] as RepeaterItem;
+                if (footer == null)
+                {
+                    MostrarMensaje("⚠️ No se encontraron los controles para fecha y hora de la cita.", "Red");
+                    return;
+                }
+
+                // Busca los controles de FechaCita y HoraCita
+                TextBox txtFechaCita = footer.FindControl("txtFechaCita") as TextBox;
+                TextBox txtHoraCita = footer.FindControl("txtHoraCita") as TextBox;
+
+                if (txtFechaCita == null || txtHoraCita == null)
+                {
+                    MostrarMensaje("⚠️ No se pudo obtener la fecha o la hora para la cita.", "Red");
+                    return;
+                }
+
+                // Asigna los valores ingresados por el usuario
+                DateTime fechaCita = DateTime.Parse(txtFechaCita.Text); // Fecha de la cita
+                TimeSpan horaCita = TimeSpan.Parse(txtHoraCita.Text);   // Hora de la cita
+
+                // Creación del nuevo turno
                 Turnos nuevoTurno = new Turnos
                 {
                     IdUsuario = usuario.IdUsuario,
-                    FechaTurno = DateTime.Now,
+                    FechaTurno = DateTime.Now, // Fecha y hora de creación del turno
+                    FechaCita = fechaCita,    // Fecha asignada por el usuario
+                    HoraCita = horaCita,      // Hora asignada por el usuario
                     Estado = "Pendiente"
                 };
 
+                // Inserta el turno en la base de datos
                 mapeador.Turnos.InsertOnSubmit(nuevoTurno);
                 mapeador.SubmitChanges();
 
+                // Asigna el nuevo turno a los servicios del carrito
                 foreach (var servicio in serviciosEnCarrito)
                 {
                     servicio.IdTurno = nuevoTurno.IdTurno;
                 }
 
+                // Guarda los cambios en la base de datos
                 mapeador.SubmitChanges();
 
+                // Calcula el importe total del turno
                 nuevoTurno.ImporteTotal = (from ts in mapeador.TurnosServicios
                                            join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
                                            where ts.IdTurno == nuevoTurno.IdTurno
                                            select s.Precio).Sum();
 
+                // Guarda el importe total en la base de datos
                 mapeador.SubmitChanges();
 
+                // Almacena el ID del turno confirmado en la sesión y redirige a la confirmación
                 Session["IdTurnoConfirmado"] = nuevoTurno.IdTurno;
                 Response.Redirect("Confirmacion.aspx");
             }
@@ -236,6 +270,8 @@ namespace AplicacionWEB
                 MostrarMensaje($"Error al confirmar el turno: {ex.Message}", "Red");
             }
         }
+
+
 
         protected void Page_Unload(object sender, EventArgs e)
         {

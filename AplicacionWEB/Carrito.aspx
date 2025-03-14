@@ -51,8 +51,61 @@
     margin-left: auto;
     margin-right: auto; /* Asegura que el margen sea automático en ambos lados */
     display: block; /* Esto alinea el elemento contenedor al centro */
-}
+    }
+    /* Contenedor estilizado */
+    .stylish-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
+    /* Etiquetas estilizadas */
+    .stylish-label {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #007bff; /* Azul brillante */
+    }
+
+    /* Entradas de fecha y hora estilizadas */
+    .stylish-input {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px 15px;
+        border: 2px solid #ced4da;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease-in-out;
+        box-shadow: inset 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Efecto al enfocar las entradas */
+    .stylish-input:focus {
+        outline: none;
+        border-color: #007bff;
+        box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+    }
+
+    /* Botón estilizado */
+    .stylish-button {
+        padding: 12px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        background: linear-gradient(to right, #28a745, #007bff); /* Gradiente de verde a azul */
+        color: white;
+        border: none;
+        border-radius: 50px;
+        transition: transform 0.2s, box-shadow 0.3s;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Efecto al pasar el mouse sobre el botón */
+    .stylish-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+        background: linear-gradient(to right, #218838, #0056b3); /* Gradiente al pasar el mouse */
+    }
 
 </style>
 
@@ -116,6 +169,15 @@
                     <div class="total-container">
                         <p class="h5"><strong>Total a pagar:</strong> ARS <%# ViewState["ImporteTotal"] ?? "0.00" %></p>
                     </div>
+                    <div class="form-group stylish-group">
+                        <label for="txtFechaCita" class="stylish-label">Fecha de la cita:</label>
+                        <asp:TextBox ID="txtFechaCita" runat="server" CssClass="stylish-input form-control" TextMode="Date"></asp:TextBox>
+                    </div>
+                    <div class="form-group stylish-group">
+                        <label for="txtHoraCita" class="stylish-label">Hora de la cita:</label>
+                        <asp:TextBox ID="txtHoraCita" runat="server" CssClass="stylish-input form-control" TextMode="Time"></asp:TextBox>
+                    </div>
+
                     <div class="text-center mt-3">
                         <asp:Button ID="btnConfirmarTurno" runat="server" OnClick="ConfirmarTurno_Click"
                                     Text="✅ Confirmar Turno" CssClass="btn btn-success btn-lg" />
@@ -126,6 +188,7 @@
                     </div>
                 </FooterTemplate>
             </asp:Repeater>
+
         </div>
     </form>
 </asp:Content>

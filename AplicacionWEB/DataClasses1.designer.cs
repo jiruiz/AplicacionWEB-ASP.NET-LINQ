@@ -541,6 +541,10 @@ namespace AplicacionWEB
 		
 		private int _IdUsuario;
 		
+		private System.DateTime _FechaCita;
+		
+		private System.TimeSpan _HoraCita;
+		
 		private EntitySet<TurnosServicios> _TurnosServicios;
 		
 		private EntityRef<Usuarios> _Usuarios;
@@ -559,6 +563,10 @@ namespace AplicacionWEB
     partial void OnImporteTotalChanged();
     partial void OnIdUsuarioChanging(int value);
     partial void OnIdUsuarioChanged();
+    partial void OnFechaCitaChanging(System.DateTime value);
+    partial void OnFechaCitaChanged();
+    partial void OnHoraCitaChanging(System.TimeSpan value);
+    partial void OnHoraCitaChanged();
     #endregion
 		
 		public Turnos()
@@ -668,6 +676,46 @@ namespace AplicacionWEB
 					this._IdUsuario = value;
 					this.SendPropertyChanged("IdUsuario");
 					this.OnIdUsuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaCita", DbType="Date NOT NULL")]
+		public System.DateTime FechaCita
+		{
+			get
+			{
+				return this._FechaCita;
+			}
+			set
+			{
+				if ((this._FechaCita != value))
+				{
+					this.OnFechaCitaChanging(value);
+					this.SendPropertyChanging();
+					this._FechaCita = value;
+					this.SendPropertyChanged("FechaCita");
+					this.OnFechaCitaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraCita", DbType="Time NOT NULL")]
+		public System.TimeSpan HoraCita
+		{
+			get
+			{
+				return this._HoraCita;
+			}
+			set
+			{
+				if ((this._HoraCita != value))
+				{
+					this.OnHoraCitaChanging(value);
+					this.SendPropertyChanging();
+					this._HoraCita = value;
+					this.SendPropertyChanged("HoraCita");
+					this.OnHoraCitaChanged();
 				}
 			}
 		}

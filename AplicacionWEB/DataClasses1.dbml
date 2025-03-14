@@ -27,6 +27,8 @@
       <Column Name="Estado" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
       <Column Name="ImporteTotal" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
       <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="FechaCita" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="HoraCita" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
       <Association Name="Turnos_TurnosServicios" Member="TurnosServicios" ThisKey="IdTurno" OtherKey="IdTurno" Type="TurnosServicios" />
       <Association Name="Usuarios_Turnos" Member="Usuarios" ThisKey="IdUsuario" OtherKey="IdUsuario" Type="Usuarios" IsForeignKey="true" />
     </Type>
