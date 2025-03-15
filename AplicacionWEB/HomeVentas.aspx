@@ -18,7 +18,6 @@
         /* Ajustes generales */
         body {
             background: linear-gradient(to bottom, #f5f7fa, #e4eaf5);
-            font-family: 'Poppins', sans-serif;
         }
 
         /* Contenedor principal */

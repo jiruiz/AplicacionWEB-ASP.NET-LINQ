@@ -253,7 +253,7 @@ namespace AplicacionWEB
                     FechaTurno = DateTime.Now, // Fecha y hora de creación del turno
                     FechaCita = fechaCita,    // Fecha asignada por el usuario
                     HoraCita = horaCita,      // Hora asignada por el usuario
-                    Estado = "Pendiente"
+                    Estado = "Confirmado"
                 };
 
                 // Inserta el turno en la base de datos

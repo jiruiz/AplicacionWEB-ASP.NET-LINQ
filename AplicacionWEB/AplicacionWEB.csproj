@@ -78,6 +78,7 @@
     <Content Include="IngresoServicios.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Logout.aspx" />
+    <Content Include="MisTurnos.aspx" />
     <Content Include="ModificarServicios.aspx" />
     <Content Include="ModificarUsuarios.aspx" />
     <Content Include="MostrarCategorias.aspx" />
@@ -162,6 +163,13 @@
     </Compile>
     <Compile Include="Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisTurnos.aspx.cs">
+      <DependentUpon>MisTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisTurnos.aspx.designer.cs">
+      <DependentUpon>MisTurnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="ModificarServicios.aspx.cs">
       <DependentUpon>ModificarServicios.aspx</DependentUpon>

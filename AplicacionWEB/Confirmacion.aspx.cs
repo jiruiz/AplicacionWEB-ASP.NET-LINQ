@@ -25,6 +25,7 @@ namespace AplicacionWEB
         {
             try
             {
+                // Recuperar el ID del turno confirmado desde la sesión
                 int idTurno = Session["IdTurnoConfirmado"] != null ? Convert.ToInt32(Session["IdTurnoConfirmado"]) : 0;
 
                 if (idTurno == 0)
@@ -33,6 +34,26 @@ namespace AplicacionWEB
                     return;
                 }
 
+                // Obtener los datos del turno confirmado
+                var turnoConfirmado = (from t in mapeador.Turnos
+                                       where t.IdTurno == idTurno
+                                       select new
+                                       {
+                                           t.FechaCita,
+                                           t.HoraCita
+                                       }).FirstOrDefault();
+
+                if (turnoConfirmado == null)
+                {
+                    MostrarError("❌ No se pudieron recuperar los datos del turno confirmado.");
+                    return;
+                }
+
+                // Mostrar la fecha y hora de la cita
+                lblFechaCita.Text = turnoConfirmado.FechaCita.ToString("dd/MM/yyyy");
+                lblHoraCita.Text = turnoConfirmado.HoraCita.ToString(@"hh\:mm");
+
+                // Obtener los servicios confirmados
                 var serviciosConfirmados = (from ts in mapeador.TurnosServicios
                                             join s in mapeador.Servicios on ts.IdServicio equals s.IdServicio
                                             where ts.IdTurno == idTurno
@@ -50,6 +71,7 @@ namespace AplicacionWEB
                 decimal importeTotal = serviciosConfirmados.Sum(sc => sc.Total);
                 ViewState["ImporteTotal"] = importeTotal.ToString("N2");
 
+                // Llenar el Repeater con los servicios confirmados
                 RepeaterServiciosConfirmados.DataSource = serviciosConfirmados;
                 RepeaterServiciosConfirmados.DataBind();
             }

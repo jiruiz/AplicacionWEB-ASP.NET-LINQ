@@ -1,6 +1,9 @@
 use templateDB;
 go
 
+SELECT * FROM Usuarios;
+
+
 ALTER TABLE Turnos
 ADD FechaCita DATE NOT NULL DEFAULT GETDATE(), -- Usar la fecha actual como predeterminada
     HoraCita TIME NOT NULL DEFAULT '09:00';   -- Usar un horario predeterminado (ejemplo: 09:00 AM)

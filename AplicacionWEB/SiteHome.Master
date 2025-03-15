@@ -90,6 +90,13 @@
                         </li>
                     </asp:PlaceHolder>
 
+
+                     <asp:PlaceHolder ID="PhMisTurnos" runat="server">
+                         <li class="nav-item">
+                             <a class="nav-link" href="MisTurnos.aspx">Mis Turnos</a>
+                         </li>
+                     </asp:PlaceHolder>
+
                     <asp:PlaceHolder ID="PhDashboard" runat="server">
                         <li class="nav-item">
                             <a class="nav-link" href="Dashboard.aspx">Dashboard</a>

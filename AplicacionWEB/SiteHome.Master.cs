@@ -39,6 +39,7 @@ namespace AplicacionWEB
                     PhDashboard.Visible = true;
                     PhCategorias.Visible = true;
                     PhUsuarios.Visible = true;
+                    PhMisTurnos.Visible = true;
                 }
                 else
                 {
@@ -46,6 +47,8 @@ namespace AplicacionWEB
                     PhDashboard.Visible = false;
                     PhCategorias.Visible = false;
                     PhUsuarios.Visible = false;
+                    PhMisTurnos.Visible = true;
+
                 }
             }
             else
@@ -61,6 +64,8 @@ namespace AplicacionWEB
                 PhDashboard.Visible = false;
                 PhUsuarios.Visible = false;
                 PhCarrito.Visible = false; // Opcional: Si no hay sesión, ocultar el carrito
+                PhMisTurnos.Visible = false;
+
             }
         }
     }
